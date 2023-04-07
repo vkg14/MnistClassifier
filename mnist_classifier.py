@@ -150,6 +150,15 @@ if __name__ == '__main__':
         ):
             all_results.extend(results)
 
+    """
+    From last run:
+    The 5 best results with associated hyperparameters!
+    Achieved accuracy of 0.9942 with learning rate 0.009000000000000001 and dropout rate 0.2 on epoch 12.
+    Achieved accuracy of 0.994 with learning rate 0.01 and dropout rate 0.1 on epoch 11.
+    Achieved accuracy of 0.9939 with learning rate 0.01 and dropout rate 0.2 on epoch 12.
+    Achieved accuracy of 0.9936 with learning rate 0.008 and dropout rate 0.1 on epoch 10.
+    Achieved accuracy of 0.9936 with learning rate 0.007 and dropout rate 0.2 on epoch 12.
+    """
     print("The 5 best results with associated hyperparameters!")
     for acc, lr, e, pdrop in heapq.nlargest(5, all_results):
         print(f"Achieved accuracy of {acc} with learning rate {lr} and dropout rate {pdrop} on epoch {e+1}.")
