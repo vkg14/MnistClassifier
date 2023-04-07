@@ -132,13 +132,12 @@ def train_given_parameters(args):
     model = MnistModel(pdropout=dropout)
     # Soft max + negative log loss
     loss_fn = nn.CrossEntropyLoss()
-    # loss_fn = nn.NLLLoss()
     test_model(test_loader, model)
     res = training_loop(model, loss_fn, train_loader, test_loader, learning_rate=lr)
     return res
 
 
-if __name__ == '__main__':
+def find_best_hyper_parameters():
     dropout_values = [0.05 * (x+1) for x in range(5)]
     learning_rate = [0.001 * (x+1) for x in range(10)]
     all_results = []
@@ -162,3 +161,7 @@ if __name__ == '__main__':
     print("The 5 best results with associated hyperparameters!")
     for acc, lr, e, pdrop in heapq.nlargest(5, all_results):
         print(f"Achieved accuracy of {acc} with learning rate {lr} and dropout rate {pdrop} on epoch {e+1}.")
+
+
+if __name__ == '__main__':
+    train_given_parameters([0.2, 0.009])
