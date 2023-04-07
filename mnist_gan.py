@@ -38,17 +38,15 @@ def train_discriminator(images):
 
     # Loss for real images
     real_labels = torch.ones(BATCH_SIZE, 1).to(device)
-    outputs = D(images)
-    d_loss_real = loss_fn(outputs, real_labels)
-    real_score = outputs
+    real_score = D(images)
+    d_loss_real = loss_fn(real_score, real_labels)
 
     # Loss for fake images
     fake_labels = torch.zeros(BATCH_SIZE, 1).to(device)
     z = torch.randn(BATCH_SIZE, LATENT_SIZE).to(device)
     fake_images = G(z)
-    outputs = D(fake_images)
-    d_loss_fake = loss_fn(outputs, fake_labels)
-    fake_score = outputs
+    fake_score = D(fake_images)
+    d_loss_fake = loss_fn(fake_score, fake_labels)
 
     # Here we combine losses, reset and re-compute the gradients, and adjust model parameters using grad.
     d_loss = d_loss_real + d_loss_fake
