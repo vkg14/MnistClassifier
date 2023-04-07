@@ -98,7 +98,8 @@ def training_loop():
             # Flatten images to single dimension (can we use view instead of reshape here?)
             images = images.reshape(BATCH_SIZE, -1).to(device)
 
-            # Train the discriminator and generator
+            # Train the discriminator to spot fake generator-model images and then generator to generate
+            # less distinguishably fake images.
             d_loss, real_score, fake_score = train_discriminator(images)
             g_loss, fake_images = train_generator()
 
