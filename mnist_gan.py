@@ -25,7 +25,7 @@ def load_data_and_config():
     return data_loader, device
 
 
-def reset_grad():
+def zero_grad():
     d_optimizer.zero_grad()
     g_optimizer.zero_grad()
 
@@ -50,7 +50,7 @@ def train_discriminator(images):
 
     # Here we combine losses, reset and re-compute the gradients, and adjust model parameters using grad.
     d_loss = d_loss_real + d_loss_fake
-    reset_grad()
+    zero_grad()
     d_loss.backward()
     d_optimizer.step()
 
@@ -65,7 +65,7 @@ def train_generator():
     # "real" quality and what the discriminator thinks.
     g_loss = loss_fn(D(fake_images), labels)
 
-    reset_grad()
+    zero_grad()
     g_loss.backward()
     g_optimizer.step()
     return g_loss, fake_images
