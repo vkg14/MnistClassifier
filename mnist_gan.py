@@ -71,7 +71,7 @@ def train_generator():
     return g_loss, fake_images
 
 
-def save_fake_images(index):
+def save_generated_image(index):
     sample_dir = 'samples'
     if not os.path.exists(sample_dir):
         os.makedirs(sample_dir)
@@ -112,8 +112,7 @@ def training_loop():
                       .format(epoch, num_epochs, i + 1, total_step, d_loss.item(), g_loss.item(),
                               real_score.mean().item(), fake_score.mean().item()))
 
-        # Sample and save images
-        save_fake_images(epoch + 1)
+        save_generated_image(epoch + 1)
 
 
 if __name__ == '__main__':
@@ -128,6 +127,7 @@ if __name__ == '__main__':
         nn.Linear(HIDDEN_SIZE, 1),
         nn.Sigmoid())
     D.to(device)
+    # This is a classifier, given random noise of a certain latent size, generates an "image size" result.
     G = nn.Sequential(
         nn.Linear(LATENT_SIZE, HIDDEN_SIZE),
         nn.ReLU(),
